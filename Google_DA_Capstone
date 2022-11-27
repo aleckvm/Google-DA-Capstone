@@ -1,0 +1,47 @@
+# Data has been cleaned through Excel Data Validation methods
+# Data was then reviewed in BigQuery
+
+# install.packages("tidyverse") and library of tidyverse and ggplot loaded prior
+
+# Data for major CSV files need to be uploaded
+stepdata <- read.csv("D:/dailySteps_merged_clean.csv")
+
+activitydata <- read.csv("D:/dailyActivity_merged_clean.csv")
+
+summary <- read.csv("D:/Tracker_Summary.csv")
+
+# Plot of Steps Taken vs Calories Burned
+ggplot(data = activitydata) + geom_point(mapping = aes(x = TotalSteps, y = Calories)) +
+labs(title="Daily Activity: Total Steps Vs Calories Burned", caption="Data provided by Mobius")
+
+# Plot of Calories Burned vs Distance Traveled
+ggplot(data = activitydata) + geom_point(mapping=aes(x=Calories,y=TotalDistance)) + 
+labs(title="Daily Activity: Calories Burned vs Distance Traveled", caption = "Data provided by Mobius")
+
+
+# Filter (normal and pipeline for certain ID: 8877689391
+
+id91 <- filter(summary, Id == "8877689391")
+
+# Pipe filtering (using 'id91 == id91_pipe' shows all TRUE or NA)
+id91_pipe <- summary %>%
+	filter(Id == "8877689391")
+
+# Aesthetics for x-label for Date readability
+
+ggplot(data=id91) + geom_point(mapping=aes(x= ActivityDate, y=Calories)) + 
+	theme(axis.text.x = element_text(angle = 45)) +
+	labs(title="Daily Activity for Id 8877689391: Date vs Calories Burned", caption="Data provided by Mobius")
+
+
+ggplot(data=summary) + geom_histogram(mapping=aes(x=BMI, fill = BMI)) + 
+	theme(axis.text.x = element_text(angle = 45)) +
+	labs(title="Histogram: BMI of available users", caption="Data provided by Mobius")
+
+# Using facet_wrap to showcase different trends of various users
+
+ggplot(data=summary) + geom_point(mapping=aes(x= ActivityDate, y=Calories)) + 
+	theme(axis.text.x = element_text(angle = 90, size = 5)) +
+	labs(title="Daily Activity for all users: Date vs Calories Burned", caption="Data provided by Mobius") +
+	facet_wrap(~Id)
+

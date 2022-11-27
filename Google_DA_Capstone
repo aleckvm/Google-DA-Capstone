@@ -45,3 +45,5 @@ ggplot(data=summary) + geom_point(mapping=aes(x= ActivityDate, y=Calories)) +
 	labs(title="Daily Activity for all users: Date vs Calories Burned", caption="Data provided by Mobius") +
 	facet_wrap(~Id)
 
+# From analysis of Excel datasheets and the above queries, users seem to have a noticeable downward trend of BMI
+# This can be used as a selling point to encourage more buyers that using BellaBeat smartwatches helps you become more health conscious.
